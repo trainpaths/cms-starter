@@ -1,0 +1,16 @@
+node_modules/
+dist/
+dist-ssr/
+.env
+*.local
+*.log
+playwright-report/
+test-results/
+.playwright-mcp/
+# local CMS package tarball (testing an unreleased CMS, see CLAUDE.md)
+.cms-local/*
+!.cms-local/.gitkeep
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json

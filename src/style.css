@@ -1,0 +1,14 @@
+/* The CMS stylesheet (Tailwind, nb-ui tokens, editor styles), then this site's theme. */
+@import '@trainpaths/cms/style.css';
+
+/* new tokens: utilities for this site's blocks and templates (bg-brand, text-brand-dark...) */
+@theme {
+	--color-brand: #1d4ed8;
+	--color-brand-dark: #1e3a8a;
+}
+
+/* site theme: public pages + the editor canvas; the admin keeps the CMS look */
+.site-theme {
+	--color-primary: var(--color-brand);
+	--color-primary-dark: var(--color-brand-dark);
+}

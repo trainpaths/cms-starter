@@ -1,0 +1,9 @@
+{
+	"name": "cta",
+	"title": "Call to action",
+	"category": "containers",
+	"description": "Title, text and a button",
+	"supports": {
+		"width": true
+	}
+}

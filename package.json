@@ -1,0 +1,36 @@
+{
+	"name": "cms-site",
+	"private": true,
+	"type": "module",
+	"packageManager": "pnpm@12.6.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vue-tsc -b && vite build && vite build --ssr src/entry-server.ts --outDir dist-ssr",
+		"preview": "vite preview",
+		"render-server": "node node_modules/@trainpaths/cms/server/render-server.js",
+		"typecheck": "vue-tsc -b",
+		"lint": "eslint .",
+		"test:e2e": "playwright test --config=e2e/playwright.config.ts",
+		"check-version": "node scripts/check-cms-version.mjs"
+	},
+	"dependencies": {
+		"@trainpaths/cms": "github:trainpaths/cms#v0.1.0&path:/frontend",
+		"@trainpaths/nb-ui": "github:trainpaths/nb-ui#v0.4.0",
+		"pinia": "^4.0.3",
+		"vue": "^3.5.43",
+		"vue-router": "^5.3.1"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.63.0",
+		"@types/node": "^26.6.2",
+		"@vue/eslint-config-typescript": "^14.9.0",
+		"eslint": "^10.11.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-vue": "^10.11.1",
+		"tailwindcss": "^4.3.3",
+		"typescript": "~6.0.3",
+		"typescript-eslint": "^8.70.1",
+		"vite": "^8.3.1",
+		"vue-tsc": "^3.3.11"
+	}
+}

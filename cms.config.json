@@ -1,0 +1,68 @@
+{
+	"$schema": "./node_modules/@trainpaths/cms/cms.config.schema.json",
+	"publicAuth": false,
+	"site": { "lang": "en" },
+	"siteConfig": {
+		"fields": [
+			{ "key": "vatId", "label": "VAT ID" },
+			{ "key": "register", "label": "Commercial register" }
+		],
+		"groups": [
+			{
+				"key": "socials",
+				"label": "Social media",
+				"allowCustom": false,
+				"presets": [
+					{ "key": "instagram", "label": "Instagram", "type": "link" },
+					{ "key": "linkedin", "label": "LinkedIn", "type": "link" },
+					{ "key": "facebook", "label": "Facebook", "type": "link" }
+				]
+			}
+		]
+	},
+	"pages": [
+		{
+			"slug": "home",
+			"title": "Home",
+			"blocks": [
+				{
+					"id": "home-cta",
+					"name": "cta",
+					"attributes": {
+						"title": "Welcome",
+						"text": "This site runs on the CMS. Log in to edit this page.",
+						"label": "Open the admin area",
+						"url": "/admin/pages"
+					}
+				}
+			]
+		},
+		{
+			"slug": "privacy-policy",
+			"title": "Privacy Policy",
+			"footer": true,
+			"blocks": [
+				{
+					"id": "privacy-p",
+					"name": "paragraph",
+					"attributes": {
+						"text": "Explain here which personal data this website collects, why, how long it is kept and how visitors can exercise their rights."
+					}
+				}
+			]
+		},
+		{
+			"slug": "legal",
+			"title": "Legal notice",
+			"template": "legal",
+			"footer": true,
+			"blocks": [
+				{
+					"id": "legal-p",
+					"name": "paragraph",
+					"attributes": { "text": "Information according to the applicable law:" }
+				}
+			]
+		}
+	]
+}

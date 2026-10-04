@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  site:
+    name: Lint / typecheck / build / smoke e2e
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: package.json
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: CMS package and API image versions match
+        run: pnpm check-version
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build (vue-tsc + client + SSR)
+        run: pnpm build
+
+      # throwaway secrets for the test stack
+      - name: Configure environment
+        run: |
+          cp .env.example .env
+          sed -i "s|^API_JWT_KEY=.*|API_JWT_KEY=$(openssl rand -hex 32)|" .env
+          sed -i "s|^S3_SECRET_KEY=.*|S3_SECRET_KEY=$(openssl rand -hex 32)|" .env
+
+      - name: Build & start stack
+        run: docker compose up -d --build
+
+      - name: Wait for frontend
+        run: timeout 180 bash -c 'until curl -sf http://localhost:5173/; do sleep 5; done'
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Smoke tests
+        env:
+          PLAYWRIGHT_BASE_URL: http://localhost:5173
+        run: pnpm test:e2e
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Stop stack
+        if: always()
+        run: docker compose down
