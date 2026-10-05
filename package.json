@@ -4,7 +4,10 @@
 	"type": "module",
 	"packageManager": "pnpm@12.6.0",
 	"scripts": {
-		"dev": "vite",
+		"dev": "docker compose up -d --build postgres seaweedfs api && vite",
+		"dev:web": "vite",
+		"docker:up": "docker compose up -d --build",
+		"docker:down": "docker compose down",
 		"build": "vue-tsc -b && vite build && vite build --ssr src/entry-server.ts --outDir dist-ssr",
 		"preview": "vite preview",
 		"render-server": "node node_modules/@trainpaths/cms/server/render-server.js",
