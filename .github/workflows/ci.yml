@@ -14,11 +14,60 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # PR → bump to latest CMS release, push commit to the PR branch if anything changed.
+  # GITHUB_TOKEN push triggers no new run → `site` tests the bumped commit in this run instead
+  # (its check stays on the previous head SHA). Fork PRs: no push rights, skipped.
+  bump:
+    name: Bump CMS to latest release
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      sha: ${{ steps.commit.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.head_ref }}
+
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: package.json
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: pnpm
+
+      # also runs pnpm install (lockfile) + check-version
+      - name: Bump CMS
+        run: pnpm bump-cms
+
+      - name: Commit & push
+        id: commit
+        run: |
+          if git diff --quiet; then
+            echo "Already on the latest CMS release"
+            exit 0
+          fi
+          version=$(sed -n 's/^ARG CMS_VERSION=//p' Dockerfile)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -am "chore(dep): bump CMS to v$version"
+          git push
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "::notice::Bumped CMS to v$version, read the release notes: https://github.com/trainpaths/cms/releases/tag/v$version"
+
   site:
     name: Lint / typecheck / build / smoke e2e
+    needs: bump
+    # bump skipped on push / fork PRs
+    if: ${{ !cancelled() && needs.bump.result != 'failure' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.bump.outputs.sha }}
 
       - uses: pnpm/action-setup@v6
         with:
