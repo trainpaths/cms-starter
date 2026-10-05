@@ -25,6 +25,7 @@ Dockerfile             build → renderer + frontend images; api = ghcr.io/train
 docker-compose.yml     postgres + seaweedfs + api + renderer + frontend
 e2e/                   Playwright smoke tests against the compose stack
 scripts/check-cms-version.mjs   package tag = Dockerfile CMS_VERSION
+scripts/bump-cms.mjs   bump CMS package tag + Dockerfile CMS_VERSION + nb-ui peer together
 .cms-local/            optional pnpm-packed CMS tarball (unreleased CMS, see below)
 ```
 
@@ -37,6 +38,7 @@ docker compose up -d --build postgres seaweedfs api && pnpm dev   # dev: API in 
 pnpm build               # vue-tsc + client + SSR bundles
 pnpm lint                # ESLint
 pnpm check-version       # @trainpaths/cms tag == Dockerfile CMS_VERSION
+pnpm bump-cms [X.Y.Z]    # upgrade the CMS (default: latest release), see below
 pnpm test:e2e            # smoke tests (stack running; PLAYWRIGHT_BASE_URL, default http://localhost:5173)
 ```
 (`make` targets wrap the same commands.) Changing `cms.config.json` → rebuild/restart the api (`docker compose up -d
@@ -44,15 +46,16 @@ pnpm test:e2e            # smoke tests (stack running; PLAYWRIGHT_BASE_URL, defa
 
 ## Upgrading the CMS
 1. Read the GitHub releases of `trainpaths/cms` between the current and the target version (`!` = breaking).
-2. Bump **both** `@trainpaths/cms` in `package.json` (`#vX.Y.Z`) and `ARG CMS_VERSION` in the `Dockerfile`; check
-   the CMS's `frontend/package.json` for its `@trainpaths/nb-ui` peer and match `@trainpaths/nb-ui` here.
-3. `pnpm install && pnpm build && pnpm check-version`; fix type errors in blocks/templates/overrides.
+2. `pnpm bump-cms [X.Y.Z]` (`make bump-cms V=X.Y.Z`; no version = latest): sets `@trainpaths/cms` (`#vX.Y.Z`),
+   `ARG CMS_VERSION` in the `Dockerfile` and `@trainpaths/nb-ui` (= the CMS's peer at that tag), checks the tag and
+   the `cms-api` image exist, runs `pnpm install` + `check-version` (`--no-install` to skip), prints release links.
+3. `pnpm build`; fix type errors in blocks/templates/overrides.
 4. Back up the database before deploying (the API migrates it on start, no downgrade).
 
 **Unreleased CMS** (testing a CMS change): `pnpm pack --pack-destination <this repo>/.cms-local` in the CMS's
 `frontend/`, set `"@trainpaths/cms": "file:.cms-local/trainpaths-cms-0.0.0.tgz"`, `pnpm install`. For the API, build
 the CMS image locally (`docker compose build api` in the CMS repo) and tag it `ghcr.io/trainpaths/cms-api:<CMS_VERSION>`.
-Switch back to the git tag before committing.
+Switch back to the git tag before committing (`pnpm bump-cms <version>` restores both pins).
 
 ## Code style
 Tabs (`.editorconfig`, `.prettierrc`: no semicolons, single quotes, 120 chars, one attribute per line), `<script
