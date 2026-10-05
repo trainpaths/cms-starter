@@ -1,4 +1,4 @@
-.PHONY: install dev up down build lint typecheck check-version test-e2e
+.PHONY: install dev up down build lint typecheck check-version bump-cms test-e2e
 
 install:
 	pnpm install
@@ -23,6 +23,9 @@ typecheck:
 
 check-version:  ## the @trainpaths/cms tag in package.json must equal CMS_VERSION in the Dockerfile
 	pnpm check-version
+
+bump-cms:  ## bump the CMS (package + API image + nb-ui peer) to V=X.Y.Z, default latest release
+	pnpm bump-cms $(V)
 
 test-e2e:  ## Playwright smoke tests (stack must be running: make up)
 	pnpm test:e2e
