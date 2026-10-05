@@ -6,8 +6,6 @@ ARG CMS_VERSION=0.1.0
 FROM node:26-alpine AS build
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-# optional pnpm-packed CMS tarball (testing an unreleased CMS, see CLAUDE.md); normally just .gitkeep
-COPY .cms-local/ .cms-local/
 # Node 26 ships no corepack; pin pnpm to package.json's packageManager
 RUN npm install -g "$(node -p "require('./package.json').packageManager")"
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm-store \
