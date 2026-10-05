@@ -31,20 +31,20 @@ scripts/bump-cms.mjs   bump CMS package tag + Dockerfile CMS_VERSION + nb-ui pee
 ```bash
 cp .env.example .env     # set API_JWT_KEY, S3_SECRET_KEY (openssl rand -hex 32), BOOTSTRAP_SUPERADMIN_* (first admin)
 pnpm install
-docker compose up -d --build        # whole site → http://localhost:5173, admin at /admin/login
-docker compose up -d --build postgres seaweedfs api && pnpm dev   # dev: API in docker + Vite (hot reload, dev SSR)
+pnpm docker:up           # whole site in docker → http://localhost:5173, admin at /admin/login; docker:down stops
+pnpm dev                 # postgres + seaweedfs + api in docker, then Vite (hot reload, dev SSR); dev:web = Vite only
 pnpm build               # vue-tsc + client + SSR bundles
 pnpm lint                # ESLint
 pnpm check-version       # @trainpaths/cms tag == Dockerfile CMS_VERSION
 pnpm bump-cms [X.Y.Z]    # upgrade the CMS (default: latest release), see below
 pnpm test:e2e            # smoke tests (stack running; PLAYWRIGHT_BASE_URL, default http://localhost:5173)
 ```
-(`make` targets wrap the same commands.) Changing `cms.config.json` → rebuild/restart the api (`docker compose up -d
---build api`); a new block/template/override file → restart `pnpm dev`.
+Changing `cms.config.json` → rebuild/restart the api (`docker compose up -d --build api`); a new
+block/template/override file → restart Vite (`pnpm dev:web`).
 
 ## Upgrading the CMS
 1. Read the GitHub releases of `trainpaths/cms` between the current and the target version (`!` = breaking).
-2. `pnpm bump-cms [X.Y.Z]` (`make bump-cms V=X.Y.Z`; no version = latest): sets `@trainpaths/cms` (`#vX.Y.Z`),
+2. `pnpm bump-cms [X.Y.Z]` (no version = latest): sets `@trainpaths/cms` (`#vX.Y.Z`),
    `ARG CMS_VERSION` in the `Dockerfile` and `@trainpaths/nb-ui` (= the CMS's peer at that tag), checks the tag and
    the `cms-api` image exist, runs `pnpm install` + `check-version` (`--no-install` to skip), prints release links.
 3. `pnpm build`; fix type errors in blocks/templates/overrides.

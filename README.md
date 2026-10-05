@@ -7,10 +7,10 @@ GitHub template for each new client site.
 ```bash
 cp .env.example .env     # set API_JWT_KEY, S3_SECRET_KEY (openssl rand -hex 32), BOOTSTRAP_SUPERADMIN_* (first admin)
 pnpm install
-docker compose up -d --build     # → http://localhost:5173, admin at /admin/login
+pnpm docker:up            # → http://localhost:5173, admin at /admin/login
 ```
 
-Development: `docker compose up -d --build postgres seaweedfs api && pnpm dev` (Vite with hot reload).
+Development: `pnpm dev` (API stack in docker + Vite with hot reload), `pnpm docker:down` to stop.
 
 How it works and what you can customize: `node_modules/@trainpaths/cms/docs/INSTANCE_GUIDE.md` (after `pnpm install`),
 or [the guide on GitHub](https://github.com/trainpaths/cms/blob/main/frontend/docs/INSTANCE_GUIDE.md). Project notes:

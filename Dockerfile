@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-# CMS version of the API image; must match the @trainpaths/cms tag in package.json (`make check-version`, CI).
+# CMS version of the API image; must match the @trainpaths/cms tag in package.json (`pnpm check-version`, CI).
 ARG CMS_VERSION=0.1.0
 
 # ── Build: admin SPA + public site (dist/) + SSR bundle (dist-ssr/) ──────────────
