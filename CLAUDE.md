@@ -5,7 +5,6 @@ the client (config, blocks, page templates, overrides, theme); the admin, editor
 CMS, pinned to one version. Created from the GitHub template `trainpaths/cms-starter`.
 
 ## Read first
-- `claude-context/SITE.md` — this client: who, domain, decisions, custom blocks/templates, deployment (keep current)
 - `node_modules/@trainpaths/cms/docs/INSTANCE_GUIDE.md` — how instances work: `cms.config.json`, blocks, templates,
   overrides (and which are stable), theme, site config helpers, images, upgrading
 - `node_modules/@trainpaths/cms/CLAUDE.md` — CMS package internals (when an override or block needs them)
@@ -26,7 +25,6 @@ docker-compose.yml     postgres + seaweedfs + api + renderer + frontend
 e2e/                   Playwright smoke tests against the compose stack
 scripts/check-cms-version.mjs   package tag = Dockerfile CMS_VERSION
 scripts/bump-cms.mjs   bump CMS package tag + Dockerfile CMS_VERSION + nb-ui peer together
-.cms-local/            optional pnpm-packed CMS tarball (unreleased CMS, see below)
 ```
 
 ## Commands
@@ -52,11 +50,6 @@ pnpm test:e2e            # smoke tests (stack running; PLAYWRIGHT_BASE_URL, defa
 3. `pnpm build`; fix type errors in blocks/templates/overrides.
 4. Back up the database before deploying (the API migrates it on start, no downgrade).
 
-**Unreleased CMS** (testing a CMS change): `pnpm pack --pack-destination <this repo>/.cms-local` in the CMS's
-`frontend/`, set `"@trainpaths/cms": "file:.cms-local/trainpaths-cms-0.0.0.tgz"`, `pnpm install`. For the API, build
-the CMS image locally (`docker compose build api` in the CMS repo) and tag it `ghcr.io/trainpaths/cms-api:<CMS_VERSION>`.
-Switch back to the git tag before committing (`pnpm bump-cms <version>` restores both pins).
-
 ## Code style
 Tabs (`.editorconfig`, `.prettierrc`: no semicolons, single quotes, 120 chars, one attribute per line), `<script
 setup lang="ts">`, Tailwind only (spacing unit 1px: `p-16` = 16px), container-query variants (`@md:`) in blocks.
@@ -64,4 +57,4 @@ setup lang="ts">`, Tailwind only (spacing unit 1px: `p-16` = 16px), container-qu
 ## Git
 Feature branches off `main` → PR into `main`. **Conventional Commits**, short single line: `<type>(<scope>): <desc>`
 (types `feat`, `fix`, `refactor`, `style`, `docs`, `test`, `chore`; scopes `blocks`, `templates`, `theme`, `config`,
-`infra`, `dep`). Deployment: see `claude-context/SITE.md`.
+`infra`, `dep`).

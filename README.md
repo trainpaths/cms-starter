@@ -14,4 +14,4 @@ Development: `docker compose up -d --build postgres seaweedfs api && pnpm dev` (
 
 How it works and what you can customize: `node_modules/@trainpaths/cms/docs/INSTANCE_GUIDE.md` (after `pnpm install`),
 or [the guide on GitHub](https://github.com/trainpaths/cms/blob/main/frontend/docs/INSTANCE_GUIDE.md). Project notes:
-[`CLAUDE.md`](CLAUDE.md), [`claude-context/SITE.md`](claude-context/SITE.md).
+[`CLAUDE.md`](CLAUDE.md).

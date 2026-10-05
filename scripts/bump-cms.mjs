@@ -41,16 +41,14 @@ let pkgText = readFileSync('package.json', 'utf8')
 let dockerfile = readFileSync('Dockerfile', 'utf8')
 const deps = JSON.parse(pkgText).dependencies
 const spec = deps['@trainpaths/cms']
-const local = spec.startsWith('file:')
-const current = local ? null : spec.match(/#v([^&]+)/)?.[1]
+const current = spec.match(/#v([^&]+)/)?.[1]
 const image = dockerfile.match(/^ARG CMS_VERSION=(\S+)/m)?.[1]
 if (!image) fail('no `ARG CMS_VERSION=` in the Dockerfile')
 
-if (!local && current === target && image === target) {
+if (current === target && image === target) {
 	console.log(`Already on CMS ${target}`)
 	process.exit(0)
 }
-if (local) console.warn(`Replacing the local tarball (${spec}) with the git tag`)
 
 // nb-ui must match the CMS's peer at that tag
 const res = await fetch(`https://raw.githubusercontent.com/${REPO}/v${target}/frontend/package.json`)
@@ -76,7 +74,7 @@ writeFileSync('package.json', pkgText)
 writeFileSync('Dockerfile', dockerfile)
 
 const from = current ?? image
-const was = local ? `${spec} / image ${image}` : current === image ? from : `${current} / image ${image}`
+const was = current === image ? from : `${current} / image ${image}`
 console.log(`CMS ${was} → ${target} (package + API image), @trainpaths/nb-ui ${deps['@trainpaths/nb-ui']} → ${nbUi}`)
 
 if (install) {
