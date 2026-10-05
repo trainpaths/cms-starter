@@ -9,5 +9,4 @@ test-results/
 .playwright-mcp/
 .DS_Store
 .idea
-.vscode/*
-!.vscode/extensions.json
+.vscode/
