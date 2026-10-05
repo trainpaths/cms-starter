@@ -50,6 +50,11 @@ block/template/override file → restart Vite (`pnpm dev:web`).
 3. `pnpm build`; fix type errors in blocks/templates/overrides.
 4. Back up the database before deploying (the API migrates it on start, no downgrade).
 
+CI does step 2 on every PR into `main` (`bump` job in `.github/workflows/ci.yml`): when a newer CMS release exists,
+it pushes `chore(dep): bump CMS to vX.Y.Z` to the PR branch, then tests that commit in the same run (a
+`GITHUB_TOKEN` push triggers no new run, so the check shows on the previous commit). `git pull` before pushing
+again; still read the release notes (linked in the run's notice).
+
 ## Code style
 Tabs (`.editorconfig`, `.prettierrc`: no semicolons, single quotes, 120 chars, one attribute per line), `<script
 setup lang="ts">`, Tailwind only (spacing unit 1px: `p-16` = 16px), container-query variants (`@md:`) in blocks.
