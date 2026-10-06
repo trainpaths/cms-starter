@@ -174,11 +174,11 @@ importers:
   .:
     dependencies:
       '@trainpaths/cms':
-        specifier: github:trainpaths/cms#v0.1.0&path:/frontend
-        version: https://codeload.github.com/trainpaths/cms/tar.gz/dfc3a2eaa7d089da1c629fed43e2041b4d1a5454#path:/frontend(@trainpaths/nb-ui@https://codeload.github.com/trainpaths/nb-ui/tar.gz/e2d1e4cd7d49a06f3cf5f82928d2322ea37a2f0a(tailwindcss@4.3.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3)))(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(tailwindcss@4.3.3)(typescript@6.0.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3))
+        specifier: github:trainpaths/cms#v1.0.0&path:/frontend
+        version: https://codeload.github.com/trainpaths/cms/tar.gz/a1d12351a57d131977143b6ae5e75e7ea6b1d394#path:/frontend(@trainpaths/nb-ui@https://codeload.github.com/trainpaths/nb-ui/tar.gz/fb9b2d0602a1327300a8f80240e23fdf4b08fda9(tailwindcss@4.3.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3)))(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(tailwindcss@4.3.3)(typescript@6.0.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3))
       '@trainpaths/nb-ui':
-        specifier: github:trainpaths/nb-ui#v0.4.0
-        version: https://codeload.github.com/trainpaths/nb-ui/tar.gz/e2d1e4cd7d49a06f3cf5f82928d2322ea37a2f0a(tailwindcss@4.3.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3))
+        specifier: github:trainpaths/nb-ui#v1.0.0
+        version: https://codeload.github.com/trainpaths/nb-ui/tar.gz/fb9b2d0602a1327300a8f80240e23fdf4b08fda9(tailwindcss@4.3.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3))
       pinia:
         specifier: ^4.0.3
         version: 4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3))
@@ -539,20 +539,20 @@ packages:
     peerDependencies:
       vite: ^5.2.0 || ^6 || ^7 || ^8
 
-  '@trainpaths/cms@https://codeload.github.com/trainpaths/cms/tar.gz/dfc3a2eaa7d089da1c629fed43e2041b4d1a5454#path:/frontend':
-    resolution: {gitHosted: true, integrity: sha512-VNNSbqIEu0XBbT+m8sGb5RS2QqClnOksg1ZGBWRJPc3J7rDaIaJ3Gtzv415yFXhNOrCcxnIzD5ALitokj/+ksg==, path: /frontend, tarball: https://codeload.github.com/trainpaths/cms/tar.gz/dfc3a2eaa7d089da1c629fed43e2041b4d1a5454}
-    version: 0.1.0
+  '@trainpaths/cms@https://codeload.github.com/trainpaths/cms/tar.gz/a1d12351a57d131977143b6ae5e75e7ea6b1d394#path:/frontend':
+    resolution: {gitHosted: true, integrity: sha512-J+8CZ0zub/BMFfmGbivUvGYoxIlHpS1t/kbIzPnyyBchUKS6wfeydCFojzi+gS9kuRRHI8EW6GNZ5wYJ83e39A==, path: /frontend, tarball: https://codeload.github.com/trainpaths/cms/tar.gz/a1d12351a57d131977143b6ae5e75e7ea6b1d394}
+    version: 1.0.0
     peerDependencies:
-      '@trainpaths/nb-ui': github:trainpaths/nb-ui#v0.4.0
+      '@trainpaths/nb-ui': github:trainpaths/nb-ui#v1.0.0
       pinia: ^4.0.3
       tailwindcss: ^4.3.3
       vite: ^8.3.1
       vue: ^3.5.43
       vue-router: ^5.3.1
 
-  '@trainpaths/nb-ui@https://codeload.github.com/trainpaths/nb-ui/tar.gz/e2d1e4cd7d49a06f3cf5f82928d2322ea37a2f0a':
-    resolution: {gitHosted: true, integrity: sha512-a0gFNkPZkrYnaK6RR73HaU3AnDVRA2wIIb2k7NNkf74Nu8ApcfZszB6Tp2D6JGICiicRlHO/9q0z56CATDqIvg==, tarball: https://codeload.github.com/trainpaths/nb-ui/tar.gz/e2d1e4cd7d49a06f3cf5f82928d2322ea37a2f0a}
-    version: 0.4.0
+  '@trainpaths/nb-ui@https://codeload.github.com/trainpaths/nb-ui/tar.gz/fb9b2d0602a1327300a8f80240e23fdf4b08fda9':
+    resolution: {gitHosted: true, integrity: sha512-2j1ObTrQWlKiY5KUTdWh9Mz1d3sTJbPBqTSm/gDa8vjHxNXn3XBzCvISALmdg+7WY+6UfyFYu3SurqVjDkNG1A==, tarball: https://codeload.github.com/trainpaths/nb-ui/tar.gz/fb9b2d0602a1327300a8f80240e23fdf4b08fda9}
+    version: 1.0.0
     peerDependencies:
       tailwindcss: ^4
       vite: '>=6'
@@ -1767,10 +1767,10 @@ snapshots:
       tailwindcss: 4.3.3
       vite: 8.3.2(@types/node@26.6.3)(jiti@2.7.0)
 
-  '@trainpaths/cms@https://codeload.github.com/trainpaths/cms/tar.gz/dfc3a2eaa7d089da1c629fed43e2041b4d1a5454#path:/frontend(@trainpaths/nb-ui@https://codeload.github.com/trainpaths/nb-ui/tar.gz/e2d1e4cd7d49a06f3cf5f82928d2322ea37a2f0a(tailwindcss@4.3.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3)))(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(tailwindcss@4.3.3)(typescript@6.0.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3))':
+  '@trainpaths/cms@https://codeload.github.com/trainpaths/cms/tar.gz/a1d12351a57d131977143b6ae5e75e7ea6b1d394#path:/frontend(@trainpaths/nb-ui@https://codeload.github.com/trainpaths/nb-ui/tar.gz/fb9b2d0602a1327300a8f80240e23fdf4b08fda9(tailwindcss@4.3.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3)))(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(tailwindcss@4.3.3)(typescript@6.0.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3))':
     dependencies:
       '@tailwindcss/vite': 4.3.3(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))
-      '@trainpaths/nb-ui': https://codeload.github.com/trainpaths/nb-ui/tar.gz/e2d1e4cd7d49a06f3cf5f82928d2322ea37a2f0a(tailwindcss@4.3.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3))
+      '@trainpaths/nb-ui': https://codeload.github.com/trainpaths/nb-ui/tar.gz/fb9b2d0602a1327300a8f80240e23fdf4b08fda9(tailwindcss@4.3.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3))
       '@vitejs/plugin-vue': 6.0.9(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3))
       '@vue/tsconfig': 0.9.1(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3))
       nanoid: 6.0.1
@@ -1782,7 +1782,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  '@trainpaths/nb-ui@https://codeload.github.com/trainpaths/nb-ui/tar.gz/e2d1e4cd7d49a06f3cf5f82928d2322ea37a2f0a(tailwindcss@4.3.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3))':
+  '@trainpaths/nb-ui@https://codeload.github.com/trainpaths/nb-ui/tar.gz/fb9b2d0602a1327300a8f80240e23fdf4b08fda9(tailwindcss@4.3.3)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue-router@5.3.1(@vue/compiler-sfc@3.5.43)(pinia@4.0.3(@vue/devtools-api@8.2.1)(typescript@6.0.3)(vue@3.5.43(typescript@6.0.3)))(rolldown@1.2.12)(vite@8.3.2(@types/node@26.6.3)(jiti@2.7.0))(vue@3.5.43(typescript@6.0.3)))(vue@3.5.43(typescript@6.0.3))':
     dependencies:
       '@fontsource-variable/roboto': 5.3.0
       tailwindcss: 4.3.3
