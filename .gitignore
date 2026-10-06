@@ -10,3 +10,6 @@ test-results/
 .DS_Store
 .idea
 .vscode/
+
+# backup archives (BACKUP_DIR bind mount)
+backups/
