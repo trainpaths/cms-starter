@@ -12,6 +12,10 @@ pnpm docker:up            # → http://localhost:5173, admin at /admin/login
 
 Development: `pnpm dev` (API stack in docker + Vite with hot reload), `pnpm docker:down` to stop.
 
+Deploying: the stack publishes its ports on `127.0.0.1` only; put a reverse proxy on the host in front of
+`127.0.0.1:FRONTEND_PORT` (TLS; it must set `X-Forwarded-For`, Caddy does by default). Backups (admin: Profile →
+Backups) land in `./backups` (`BACKUP_DIR`); copy them off the server.
+
 How it works and what you can customize: `node_modules/@trainpaths/cms/docs/INSTANCE_GUIDE.md` (after `pnpm install`),
 or [the guide on GitHub](https://github.com/trainpaths/cms/blob/main/frontend/docs/INSTANCE_GUIDE.md). Project notes:
 [`CLAUDE.md`](CLAUDE.md).

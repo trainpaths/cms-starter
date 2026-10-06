@@ -21,7 +21,9 @@ src/main.ts, src/entry-client.ts, src/entry-server.ts   entry stubs (import ./st
 index.html, public.html    admin shell / public page template (keep the <!--app-*--> placeholders)
 vite.config.ts         plugins: [cms()]
 Dockerfile             build → renderer + frontend images; api = ghcr.io/trainpaths/cms-api:${CMS_VERSION} + cms.config.json
-docker-compose.yml     postgres + seaweedfs + api + renderer + frontend
+compose.yaml           postgres + seaweedfs (internal `backend` network) + api + renderer + frontend; ports on 127.0.0.1
+                       only; backups bind mount (BACKUP_DIR, default ./backups) chowned by `backups-init`; every service
+                       no-new-privileges + cap_drop ALL (INSTANCE_GUIDE → Running and deploying)
 e2e/                   Playwright smoke tests against the compose stack
 scripts/check-cms-version.mjs   package tag = Dockerfile CMS_VERSION
 scripts/bump-cms.mjs   bump CMS package tag + Dockerfile CMS_VERSION + nb-ui peer together
@@ -56,7 +58,7 @@ it pushes `chore(dep): bump CMS to vX.Y.Z` to the PR branch, then tests that com
 again; still read the release notes (linked in the run's notice).
 
 ## Code style
-Tabs (`.editorconfig`, `.prettierrc`: no semicolons, single quotes, 120 chars, one attribute per line), `<script
+Tabs (`.prettierrc`: no semicolons, single quotes, 120 chars, one attribute per line), `<script
 setup lang="ts">`, Tailwind only (spacing unit 1px: `p-16` = 16px), container-query variants (`@md:`) in blocks.
 
 ## Git
