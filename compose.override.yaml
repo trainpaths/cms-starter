@@ -1,0 +1,7 @@
+# Dev only, loaded automatically by `docker compose` next to compose.yaml: publishes the api for the Vite /api proxy
+# (`pnpm dev`). Production skips this file: `docker compose -f compose.yaml …` or COMPOSE_FILE=compose.yaml in .env.
+
+services:
+  api:
+    ports:
+      - "127.0.0.1:${API_PORT:-5183}:8080"

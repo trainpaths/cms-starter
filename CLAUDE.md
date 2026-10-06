@@ -21,9 +21,11 @@ src/main.ts, src/entry-client.ts, src/entry-server.ts   entry stubs (import ./st
 index.html, public.html    admin shell / public page template (keep the <!--app-*--> placeholders)
 vite.config.ts         plugins: [cms()]
 Dockerfile             build → renderer + frontend images; api = ghcr.io/trainpaths/cms-api:${CMS_VERSION} + cms.config.json
-compose.yaml           postgres + seaweedfs (internal `backend` network) + api + renderer + frontend; ports on 127.0.0.1
-                       only; backups bind mount (BACKUP_DIR, default ./backups) chowned by `backups-init`; every service
+compose.yaml           production stack: postgres + seaweedfs (internal `backend` network) + api + renderer + frontend;
+                       only frontend publishes a port (127.0.0.1); backups bind mount (BACKUP_DIR, default ./backups) chowned by `backups-init`; every service
                        no-new-privileges + cap_drop ALL (INSTANCE_GUIDE → Running and deploying)
+compose.override.yaml  dev only (auto-loaded): api on 127.0.0.1:API_PORT for the Vite proxy; production skips it
+                       (`COMPOSE_FILE=compose.yaml` in the server's .env, or `docker compose -f compose.yaml`)
 e2e/                   Playwright smoke tests against the compose stack
 scripts/check-cms-version.mjs   package tag = Dockerfile CMS_VERSION
 scripts/bump-cms.mjs   bump CMS package tag + Dockerfile CMS_VERSION + nb-ui peer together
