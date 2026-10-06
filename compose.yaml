@@ -1,25 +1,40 @@
-# The site: postgres + seaweedfs + api (CMS image + cms.config.json) + renderer + frontend, all built from ./Dockerfile.
-# Dev-only credentials come from .env; production uses managed services / real secrets.
+# The site: postgres + seaweedfs + api (CMS image + cms.config.json) + renderer + frontend, built from ./Dockerfile.
+# Credentials come from .env.
+# Networks: postgres + seaweedfs sit on `backend` (internal: no egress, unreachable from renderer/frontend); the api
+# bridges both. Only frontend + api publish ports, on 127.0.0.1: a reverse proxy on the host serves the site
+# (published ports bypass ufw, so never bind 0.0.0.0).
+# Every service: no-new-privileges + all capabilities dropped; processes run as non-root users (api 1654, renderer
+# node, frontend nginx 101, postgres 70, seaweedfs 1000), cap_add only for the root steps that need it.
 
 services:
   postgres:
     image: postgres:18-alpine
     restart: unless-stopped
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    # entrypoint runs as root only to fix data-dir ownership, then drops to its user
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/18/docker
+    networks: [backend]
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
       interval: 5s
       timeout: 5s
       retries: 5
   # Media blob store (S3 API on :8333). Not published to the host: only the api talks to it.
+  # -ip.bind=0.0.0.0 = all interfaces of this container, i.e. the backend network only (127.0.0.1 would cut off the api).
   seaweedfs:
     image: chrislusf/seaweedfs:4.47
     restart: unless-stopped
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    # entrypoint runs as root only to fix data-dir ownership, then drops to its user
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]
     command: server -s3 -ip.bind=0.0.0.0
     environment:
       # creates the admin S3 identity; anonymous requests are denied
@@ -27,6 +42,7 @@ services:
       AWS_SECRET_ACCESS_KEY: ${S3_SECRET_KEY:?Set S3_SECRET_KEY in .env (openssl rand -hex 32)}
     volumes:
       - seaweed-data:/data
+    networks: [backend]
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8333/healthz"]
       interval: 5s
@@ -36,8 +52,13 @@ services:
   api:
     build:
       target: api
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    # host port only for `pnpm dev` (Vite on the host proxies /api); in the stack nginx reaches api:8080 directly
     ports:
-      - "${API_PORT:-5183}:8080"
+      - "127.0.0.1:${API_PORT:-5183}:8080"
+    # default: renderer, frontend, SMTP egress
+    networks: [backend, default]
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
       ConnectionStrings__Postgres: "Host=postgres;Port=5432;Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
@@ -66,7 +87,14 @@ services:
       Storage__S3__Bucket: ${S3_BUCKET:-media}
       Renderer__BaseUrl: http://renderer:8080
       Renderer__PublicBaseUrl: ${APP_BASE_URL:-http://localhost:5173}
+      # shown in the admin's Backups tab (the API can't see the host side of its mount)
+      Backup__HostPath: ${BACKUP_DIR:-./backups}
+    volumes:
+      # backup archives on the host (owner set by backups-init)
+      - ${BACKUP_DIR:-./backups}:/backups
     depends_on:
+      backups-init:
+        condition: service_completed_successfully
       postgres:
         condition: service_healthy
       seaweedfs:
@@ -77,10 +105,22 @@ services:
       timeout: 5s
       retries: 5
       start_period: 30s
+  # Docker creates a missing bind folder as root; the api runs as uid 1654 (.NET image `app` user).
+  backups-init:
+    image: busybox:1.37
+    command: chown 1654:1654 /backups
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    cap_add: [CHOWN]
+    volumes:
+      - ${BACKUP_DIR:-./backups}:/backups
+    network_mode: none
   # Renders public pages to HTML for the api (POST /render). Not published: only the api talks to it.
   renderer:
     build:
       target: renderer
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/health"]
@@ -90,8 +130,10 @@ services:
   frontend:
     build:
       target: frontend
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
     ports:
-      - "${FRONTEND_PORT:-5173}:8080"
+      - "127.0.0.1:${FRONTEND_PORT:-5173}:8080"
     depends_on:
       api:
         condition: service_healthy
@@ -105,3 +147,7 @@ services:
 volumes:
   pgdata:
   seaweed-data:
+
+networks:
+  backend:
+    internal: true
