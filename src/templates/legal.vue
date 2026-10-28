@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { PageContent, addressLines, entryHref, entryText, filledEntries, type TemplateProps } from '@trainpaths/cms/site'
 
 /**
@@ -7,13 +8,14 @@ import { PageContent, addressLines, entryHref, entryText, filledEntries, type Te
  * name, contact, VAT ID, commercial register), so the notice stays in sync with the site config.
  */
 const props = defineProps<TemplateProps>()
+const { t } = useI18n()
 
 const firmName = computed(() => props.config?.fields.firmName ?? '')
 const contact = computed(() => filledEntries(props.config, 'contact'))
 const legal = computed(() =>
 	[
-		{ label: 'VAT ID', value: props.config?.fields.vatId ?? '' },
-		{ label: 'Commercial register', value: props.config?.fields.register ?? '' },
+		{ label: t('siteConfig.fields.vatId'), value: props.config?.fields.vatId ?? '' },
+		{ label: t('siteConfig.fields.register'), value: props.config?.fields.register ?? '' },
 	].filter((item) => item.value),
 )
 </script>
@@ -39,7 +41,7 @@ const legal = computed(() =>
 					v-else
 					class="m-0 mb-12 text-gray-400"
 				>
-					Fill in the firm name and contact details under Configuration.
+					{{ t('legal.missingFirm') }}
 				</p>
 				<dl class="m-0 grid grid-cols-[max-content_1fr] gap-x-24 gap-y-8 text-sm">
 					<template
