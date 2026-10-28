@@ -87,6 +87,8 @@ services:
       Storage__S3__Bucket: ${S3_BUCKET:-media}
       Renderer__BaseUrl: http://renderer:8080
       Renderer__PublicBaseUrl: ${APP_BASE_URL:-http://localhost:5173}
+      # editor "Translate missing fields" (empty = off)
+      Translation__DeepL__ApiKey: ${DEEPL_API_KEY:-}
       # shown in the admin's Backups tab (the API can't see the host side of its mount)
       Backup__HostPath: ${BACKUP_DIR:-./backups}
     volumes:
