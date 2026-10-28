@@ -4,6 +4,7 @@
 	"category": "containers",
 	"description": "Title, text and a button",
 	"supports": {
-		"width": true
+		"width": true,
+		"backgroundColor": ["light", "accent"]
 	}
 }

@@ -2,6 +2,15 @@
 	"$schema": "./node_modules/@trainpaths/cms/cms.config.schema.json",
 	"publicAuth": false,
 	"site": { "lang": "en" },
+	"theme": {
+		"colors": {
+			"primary": "#1d4ed8",
+			"accent": "#f59e0b",
+			"dark": "#1f2937",
+			"light": "#f3f4f6",
+			"white": "#ffffff"
+		}
+	},
 	"siteConfig": {
 		"fields": [
 			{ "key": "vatId", "label": "VAT ID" },
