@@ -1,0 +1,20 @@
+{
+	"blocks": {
+		"cta": {
+			"title": "Call to Action",
+			"description": "Titel, Text und ein Button"
+		}
+	},
+	"siteConfig": {
+		"fields": {
+			"vatId": "MWST-Nummer",
+			"register": "Handelsregister"
+		},
+		"groups": {
+			"socials": "Social Media"
+		}
+	},
+	"legal": {
+		"missingFirm": "Firmenname und Kontaktangaben unter Konfiguration ausfüllen."
+	}
+}

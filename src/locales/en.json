@@ -1,0 +1,20 @@
+{
+	"blocks": {
+		"cta": {
+			"title": "Call to action",
+			"description": "Title, text and a button"
+		}
+	},
+	"siteConfig": {
+		"fields": {
+			"vatId": "VAT ID",
+			"register": "Commercial register"
+		},
+		"groups": {
+			"socials": "Social media"
+		}
+	},
+	"legal": {
+		"missingFirm": "Fill in the firm name and contact details under Configuration."
+	}
+}
