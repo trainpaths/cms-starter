@@ -48,7 +48,8 @@ Changing `cms.config.json` → rebuild/restart the api (`docker compose up -d --
 block/template/override file → restart Vite (`pnpm dev:web`).
 
 ## Upgrading the CMS
-1. Read the GitHub releases of `trainpaths/cms` between the current and the target version (`!` = breaking).
+1. Read the GitHub releases of `trainpaths/cms` between the current and the target version (`!` = breaking;
+   the CMS is on 0.x: a minor bump may break, from 1.0 only a major).
 2. `pnpm bump-cms [X.Y.Z]` (no version = latest): sets `@trainpaths/cms` (`#vX.Y.Z`),
    `ARG CMS_VERSION` in the `Dockerfile` and `@trainpaths/nb-ui` (= the CMS's peer at that tag), checks the tag and
    the `cms-api` image exist, runs `pnpm install` + `check-version` (`--no-install` to skip), prints release links.

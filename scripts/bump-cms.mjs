@@ -84,9 +84,11 @@ if (install) {
 
 // release notes between the old and new version (downgrade: just the target)
 const notes = tags.filter((t) => compare(t, from) > 0 && compare(t, target) <= 0)
-const major = parse(target)[0] > parse(from)[0]
+// breaking = a new major; on 0.x a new minor too (0.3.x → 0.4.0)
+const [to, old] = [parse(target), parse(from)]
+const breaking = to[0] > old[0] || (to[0] === 0 && old[0] === 0 && to[1] > old[1])
 console.log(`
-Read the release notes${major ? ' (BREAKING: new major version)' : ''}:
+Read the release notes${breaking ? ` (BREAKING: new ${to[0] > old[0] ? 'major' : 'minor on 0.x'} version)` : ''}:
 ${(notes.length ? notes : [target]).map((t) => `  https://github.com/${REPO}/releases/tag/v${t}`).join('\n')}
 
 Next: ${install ? '' : 'pnpm install, '}pnpm build (fix type errors in blocks/templates/overrides), back up the database
