@@ -11,12 +11,17 @@ CMS, pinned to one version. Created from the GitHub template `trainpaths/cms-sta
 
 ## Layout
 ```
-cms.config.json        instance config, read by the API only (pages, site config fields/groups, publicAuth, site.lang,
-                       hidden blocks); "$schema" → node_modules/@trainpaths/cms/cms.config.schema.json
-src/blocks/<name>/     site blocks (example: cta); Edit/Settings/index import @trainpaths/cms/editor, View @trainpaths/cms/site
+cms.config.json        instance config (pages, site config fields/groups, publicAuth, hidden blocks; site.lang +
+                       theme.colors are also read by cms() at build time); "$schema" →
+                       node_modules/@trainpaths/cms/cms.config.schema.json. site.lang: one tag ("en") or
+                       { "default": "en-US", "localization": ["de-CH", ...] } (INSTANCE_GUIDE → Languages)
+src/blocks/<name>/     site blocks (example: cta); Edit/Settings/index import @trainpaths/cms/editor, View @trainpaths/cms/site;
+                       visitor text `translatable: true` + edited via useBlockText
 src/templates/<name>.vue   template pages (example: legal = owner blocks + firm/contact/VAT/register from Configuration)
 src/overrides/<Name>.vue   replace CMS components (example: SiteFooter = CMS footer + socials); nb-ui: src/overrides/ui/
-src/style.css          @import '@trainpaths/cms/style.css' + theme (@theme tokens, .site-theme overrides)
+src/locales/<code>.json    UI strings merged over the CMS's (block titles, site config labels, template strings)
+src/style.css          @import '@trainpaths/cms/style.css' + tokens outside the palette (palette: cms.config.json
+                       theme.colors, the editor's only colour swatches)
 src/main.ts, src/entry-client.ts, src/entry-server.ts   entry stubs (import ./style.css, call the CMS entries)
 index.html, public.html    admin shell / public page template (keep the <!--app-*--> placeholders)
 vite.config.ts         plugins: [cms()]
@@ -44,7 +49,8 @@ pnpm check-version       # @trainpaths/cms tag == Dockerfile CMS_VERSION
 pnpm bump-cms [X.Y.Z]    # upgrade the CMS (default: latest release), see below
 pnpm test:e2e            # smoke tests (stack running; PLAYWRIGHT_BASE_URL, default http://localhost:5173)
 ```
-Changing `cms.config.json` → rebuild/restart the api (`docker compose up -d --build api`); a new
+Changing `cms.config.json` → rebuild/restart the api (`docker compose up -d --build api`), and the frontend for
+`site.lang`/`theme`; a new
 block/template/override file → restart Vite (`pnpm dev:web`).
 
 ## Upgrading the CMS
