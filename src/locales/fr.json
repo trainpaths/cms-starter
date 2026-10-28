@@ -1,0 +1,20 @@
+{
+	"blocks": {
+		"cta": {
+			"title": "Appel à l'action",
+			"description": "Titre, texte et un bouton"
+		}
+	},
+	"siteConfig": {
+		"fields": {
+			"vatId": "Numéro TVA",
+			"register": "Registre du commerce"
+		},
+		"groups": {
+			"socials": "Réseaux sociaux"
+		}
+	},
+	"legal": {
+		"missingFirm": "Renseigner le nom de l'entreprise et les coordonnées sous Configuration."
+	}
+}

@@ -14,7 +14,8 @@ CMS, pinned to one version. Created from the GitHub template `trainpaths/cms-sta
 cms.config.json        instance config (pages, site config fields/groups, publicAuth, hidden blocks; site.lang +
                        theme.colors are also read by cms() at build time); "$schema" →
                        node_modules/@trainpaths/cms/cms.config.schema.json. site.lang: one tag ("en") or
-                       { "default": "en-US", "localization": ["de-CH", ...] } (INSTANCE_GUIDE → Languages)
+                       { "default": "en-US", "localization": ["de-CH", ...] } (INSTANCE_GUIDE → Languages); the
+                       template ships en + de-CH, it-CH, fr-CH (drop what a client doesn't need, with its src/locales file)
 src/blocks/<name>/     site blocks (example: cta); Edit/Settings/index import @trainpaths/cms/editor, View @trainpaths/cms/site;
                        visitor text `translatable: true` + edited via useBlockText
 src/templates/<name>.vue   template pages (example: legal = owner blocks + firm/contact/VAT/register from Configuration)

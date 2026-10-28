@@ -1,0 +1,20 @@
+{
+	"blocks": {
+		"cta": {
+			"title": "Invito all'azione",
+			"description": "Titolo, testo e un pulsante"
+		}
+	},
+	"siteConfig": {
+		"fields": {
+			"vatId": "Numero IVA",
+			"register": "Registro di commercio"
+		},
+		"groups": {
+			"socials": "Social media"
+		}
+	},
+	"legal": {
+		"missingFirm": "Compilare il nome della ditta e i dati di contatto in Configurazione."
+	}
+}
