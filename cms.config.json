@@ -1,7 +1,7 @@
 {
 	"$schema": "./node_modules/@trainpaths/cms/cms.config.schema.json",
 	"publicAuth": false,
-	"site": { "lang": "en" },
+	"site": { "lang": { "default": "en", "localization": ["de-CH", "it-CH", "fr-CH"] } },
 	"theme": {
 		"colors": {
 			"primary": "#1d4ed8",
