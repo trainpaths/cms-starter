@@ -8,11 +8,13 @@ import CtaSettings from './CtaSettings.vue'
 export default defineBlock(meta, {
 	icon: CtaIcon,
 	attributes: {
-		title: { type: 'string', default: '' },
-		text: { type: 'string', default: '' },
-		label: { type: 'string', default: '' },
+		// differ per language (localized sites); url, width and colour are shared
+		title: { type: 'string', default: '', translatable: true },
+		text: { type: 'string', default: '', translatable: true },
+		label: { type: 'string', default: '', translatable: true },
 		url: { type: 'string', default: '' },
 		blockWidth: { type: 'string', default: 'default' },
+		backgroundColor: { type: 'string', default: '' },
 	},
 	edit: CtaEdit,
 	settings: CtaSettings,

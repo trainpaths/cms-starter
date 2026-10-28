@@ -4,6 +4,8 @@ import type { BlockInstance } from '@trainpaths/cms/site'
 
 const props = defineProps<{ block: BlockInstance }>()
 const url = computed(() => String(props.block.attributes.url ?? ''))
+// palette colour on the block wrapper replaces the tint
+const bgClass = computed(() => (props.block.attributes.backgroundColor ? '' : 'bg-primary/10'))
 // same-site paths as router links (no full page load), anything else as a plain link
 const internal = computed(() => url.value.startsWith('/') && !url.value.startsWith('//'))
 </script>
@@ -11,7 +13,8 @@ const internal = computed(() => url.value.startsWith('/') && !url.value.startsWi
 <template>
 	<div class="p-16">
 		<div
-			class="flex flex-col items-start gap-12 rounded-lg bg-brand/10 p-24"
+			class="flex flex-col items-start gap-12 rounded-lg p-24"
+			:class="bgClass"
 			data-testid="cta"
 		>
 			<h2 class="m-0 font-sans text-2xl font-bold text-gray-900">{{ block.attributes.title }}</h2>
